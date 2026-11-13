@@ -58,7 +58,7 @@ func _build_world() -> void:
     for i in range(34):
         var z := -float(i) * 4.2
         for side in [-1.0, 1.0]:
-            var x := side * randf_range(5.0, 8.5)
+            var x: float = float(side) * randf_range(5.0, 8.5)
             _make_tree(Vector3(x, 0, z + randf_range(-1.0, 1.0)))
 
 func _make_tree(pos: Vector3) -> void:
@@ -86,7 +86,7 @@ func _build_player() -> void:
     player.add_child(body)
     var head := _mesh_instance(SphereMesh.new(), Vector3(0, 0.55, -0.28), Vector3(0.47, 0.47, 0.47), Color(1, 1, 0.97))
     player.add_child(head)
-    var beak := _mesh_instance(ConeMesh.new(), Vector3(0, 0.53, -0.72), Vector3(0.22, 0.22, 0.22), Color(0.95, 0.58, 0.12))
+    var beak := _mesh_instance(SphereMesh.new(), Vector3(0, 0.53, -0.72), Vector3(0.22, 0.16, 0.28), Color(0.95, 0.58, 0.12))
     beak.rotation_degrees.x = 90
     player.add_child(beak)
     for side in [-1.0, 1.0]:
@@ -183,7 +183,7 @@ func _input(event: InputEvent) -> void:
         if event.pressed:
             touch_start = event.position
         else:
-            var swipe := event.position - touch_start
+            var swipe: Vector2 = event.position - touch_start
             if swipe.length() > 45:
                 if abs(swipe.x) > abs(swipe.y):
                     _change_lane(1 if swipe.x > 0 else -1)
