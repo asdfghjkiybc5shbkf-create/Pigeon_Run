@@ -44,6 +44,14 @@ func _build_world() -> void:
     sun.light_energy = 1.15
     add_child(sun)
 
+    var ground_body := StaticBody3D.new()
+    ground_body.position = Vector3(0, -0.35, -45)
+    var ground_shape := CollisionShape3D.new()
+    var ground_box := BoxShape3D.new()
+    ground_box.size = Vector3(8.5, 0.6, 115)
+    ground_shape.shape = ground_box
+    ground_body.add_child(ground_shape)
+    add_child(ground_body)
     _add_box(self, Vector3(0, -0.35, -45), Vector3(8.5, 0.6, 115), Color(0.28, 0.34, 0.22))
     for x in [-1.1, 1.1]:
         _add_box(self, Vector3(x, 0.01, -45), Vector3(0.045, 0.025, 115), Color(0.78, 0.72, 0.52))
